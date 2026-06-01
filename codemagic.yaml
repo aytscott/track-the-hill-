@@ -8,7 +8,7 @@ workflows:
     scripts:
       - name: Install dependencies
         script: npm install
-      - name: Install Capacitor iOS
+      - name: Add iOS platform
         script: npx cap add ios
       - name: Sync Capacitor
         script: npx cap sync ios
@@ -18,6 +18,6 @@ workflows:
             -scheme App \
             -configuration Release \
             -archivePath ios/App/App.xcarchive \
-            archive
+            archive CODE_SIGNING_ALLOWED=NO
     artifacts:
       - ios/App/App.xcarchive
