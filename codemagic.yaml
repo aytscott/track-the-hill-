@@ -5,6 +5,9 @@ workflows:
     environment:
       xcode: latest
       node: latest
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.ayden.trackthehill
     scripts:
       - name: Install dependencies
         script: npm install
@@ -18,6 +21,12 @@ workflows:
             -scheme App \
             -configuration Release \
             -archivePath ios/App/App.xcarchive \
-            archive CODE_SIGNING_ALLOWED=NO
+            archive
     artifacts:
       - ios/App/App.xcarchive
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $APP_STORE_CONNECT_KEY_IDENTIFIER
+        issuer_id: $APP_STORE_CONNECT_ISSUER_ID
+        submit_to_testflight: false
