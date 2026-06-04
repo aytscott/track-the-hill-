@@ -15,11 +15,6 @@ workflows:
         script: npx cap add ios
       - name: Sync Capacitor
         script: npx cap sync ios
-      - name: Set Team ID
-        script: |
-          grep -rl "DEVELOPMENT_TEAM" ios/App/App.xcodeproj/project.pbxproj
-          sed -i '' 's/DEVELOPMENT_TEAM = ""/DEVELOPMENT_TEAM = 9N38SB2GF2/g' ios/App/App.xcodeproj/project.pbxproj
-          grep "DEVELOPMENT_TEAM" ios/App/App.xcodeproj/project.pbxproj
       - name: Build iOS
         script: |
           xcodebuild -project ios/App/App.xcodeproj \
@@ -27,6 +22,9 @@ workflows:
             -configuration Release \
             -archivePath ios/App/App.xcarchive \
             DEVELOPMENT_TEAM=9N38SB2GF2 \
+            CODE_SIGN_STYLE=Manual \
+            PROVISIONING_PROFILE_SPECIFIER=TrackTheHill \
+            CODE_SIGN_IDENTITY="Apple Distribution" \
             archive
     artifacts:
       - ios/App/App.xcarchive
