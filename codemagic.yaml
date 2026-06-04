@@ -9,16 +9,12 @@ workflows:
       - name: Install dependencies
         script: npm install
       - name: Add iOS platform
-        script: |
-          npx cap add ios
-          ls -la ios/App/ || echo "iOS folder not created!"
+        script: npx cap add ios
       - name: Sync Capacitor
         script: npx cap sync ios
-      - name: Debug
-        script: ls -la ios/App/
       - name: Build iOS
         script: |
-          xcodebuild -workspace ios/App/App.xcworkspace \
+          xcodebuild -project ios/App/App.xcodeproj \
             -scheme App \
             -configuration Release \
             -archivePath ios/App/App.xcarchive \
