@@ -34,9 +34,14 @@ workflows:
           <plist version="1.0">
           <dict>
             <key>method</key>
-            <string>app-store</string>
+            <string>app-store-connect</string>
             <key>teamID</key>
             <string>9N38SB2GF2</string>
+            <key>provisioningProfiles</key>
+            <dict>
+              <key>com.ayden.trackthehill</key>
+              <string>TrackTheHill</string>
+            </dict>
           </dict>
           </plist>
           PLIST
