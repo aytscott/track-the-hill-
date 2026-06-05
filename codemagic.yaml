@@ -26,5 +26,23 @@ workflows:
             PROVISIONING_PROFILE_SPECIFIER=TrackTheHill \
             CODE_SIGN_IDENTITY="Apple Distribution" \
             archive
+      - name: Export IPA
+        script: |
+          cat > /tmp/exportOptions.plist << 'PLIST'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key>
+            <string>app-store</string>
+            <key>teamID</key>
+            <string>9N38SB2GF2</string>
+          </dict>
+          </plist>
+          PLIST
+          xcodebuild -exportArchive \
+            -archivePath ios/App/App.xcarchive \
+            -exportPath ios/App/export \
+            -exportOptionsPlist /tmp/exportOptions.plist
     artifacts:
-      - ios/App/App.xcarchive
+      - ios/App/export/*.ipa
